@@ -1,0 +1,27 @@
+{
+  "name": "webdev_template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack serve --open"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "css-loader": "^6.8.1",
+    "postcss": "^8.4.26",
+    "postcss-loader": "^7.3.3",
+    "prettier": "^3.0.1",
+    "prettier-plugin-tailwindcss": "^0.4.1",
+    "style-loader": "^3.3.3",
+    "tailwindcss": "^3.3.3",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}
