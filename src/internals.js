@@ -7,6 +7,8 @@ const internalFunc = {
   timerStart,
   timerEnd,
   logTime,
+  saveLocalData,
+  applyLocalData,
 };
 
 function timerStart() {
@@ -22,8 +24,21 @@ function logTime() {
   let date = new Date();
   let today =
     date.getMonth() + 1 + "." + date.getDay() + "." + date.getFullYear();
-  masterLog[today] = elapsed;
-  console.log(masterLog);
+  if (!masterLog[today]) {
+    masterLog[today] = [];
+  }
+  masterLog[today].push(elapsed);
 }
 
-export { internalFunc };
+function saveLocalData() {
+  const myJSON = JSON.stringify(masterLog);
+  localStorage.setItem("masterLog_string", myJSON);
+}
+
+function applyLocalData() {
+  const myJSON = localStorage.getItem("masterLog_string");
+  const masterLogCopy = JSON.parse(myJSON);
+  Object.assign(masterLog, masterLogCopy);
+}
+
+export { internalFunc, masterLog };

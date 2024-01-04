@@ -1,4 +1,4 @@
-import { internalFunc } from "./internals";
+import { internalFunc, masterLog } from "./internals";
 
 const content = document.getElementById("content");
 const button = document.createElement("button");
@@ -9,6 +9,8 @@ function initializePage() {
   button.innerText = "Start";
   button.addEventListener("click", buttonClick);
   content.append(button);
+
+  internalFunc.applyLocalData();
   return;
 }
 
@@ -21,6 +23,8 @@ function buttonClick() {
     toggleButtonOff();
     internalFunc.timerEnd();
     internalFunc.logTime();
+    updateDisplay();
+    internalFunc.saveLocalData();
     state = false;
   }
 }
@@ -35,14 +39,8 @@ function toggleButtonOff() {
 
 function updateDisplay() {
   const entry = document.createElement("div");
-  entry.innerText = elapsed;
+  entry.innerText = Object.entries(masterLog);
   content.append(entry);
 }
 
-function saveLocalData() {}
-
 export { initializePage };
-
-// object
-// timeLog {
-// date: {}
