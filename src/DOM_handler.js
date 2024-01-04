@@ -1,17 +1,24 @@
 import { internalFunc, masterLog } from "./internals";
 
 const content = document.getElementById("content");
+const top = document.createElement("div");
 const button = document.createElement("button");
 let state = false;
 
 function initializePage() {
-  button.classList.add(..."border-2 border-black".split(" "));
+  top.className = "flex justify-center py-10";
+  button.className =
+    "flex h-14 w-36 items-center justify-center border-2 border-black";
+
+  top.id = "top";
   button.innerText = "Start";
+
   button.addEventListener("click", buttonClick);
-  content.append(button);
+
+  content.append(top);
+  top.append(button);
 
   internalFunc.applyLocalData();
-  return;
 }
 
 function buttonClick() {
@@ -30,17 +37,25 @@ function buttonClick() {
 }
 
 function toggleButtonOn() {
+  top.className = "flex justify-center bg-black py-10";
+  button.className =
+    "flex h-14 w-36 items-center justify-center border-2 border-white text-white";
+
   button.innerText = "Stop";
 }
 
 function toggleButtonOff() {
+  top.className = "flex justify-center py-10";
+  button.className =
+    "flex h-14 w-36 items-center justify-center border-2 border-black";
+
   button.innerText = "Start";
 }
 
 function updateDisplay() {
-  const entry = document.createElement("div");
-  entry.innerText = Object.entries(masterLog);
-  content.append(entry);
+  const data = document.createElement("div");
+  data.innerText = Object.entries(masterLog);
+  content.append(data);
 }
 
 export { initializePage };
