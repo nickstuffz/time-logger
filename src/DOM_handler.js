@@ -53,9 +53,16 @@ function toggleButtonOff() {
 }
 
 function updateDisplay() {
-  const data = document.createElement("div");
-  data.innerText = Object.entries(masterLog);
-  content.append(data);
+  Object.keys(masterLog).forEach((element) => {
+    const key = document.createElement("div");
+    key.innerText = element;
+    content.append(key);
+  });
+  Object.values(masterLog).forEach((element) => {
+    const value = document.createElement("div");
+    value.innerText = element;
+    content.append(value);
+  });
 }
 
 export { initializePage };

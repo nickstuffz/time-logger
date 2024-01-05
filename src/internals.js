@@ -28,6 +28,7 @@ function logTime() {
     masterLog[today] = [];
   }
   masterLog[today].push(elapsed);
+  console.log(Object.values(masterLog));
 }
 
 function saveLocalData() {
