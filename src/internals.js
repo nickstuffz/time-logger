@@ -23,12 +23,11 @@ function timerEnd() {
 function logTime() {
   let date = new Date();
   let today =
-    date.getMonth() + 1 + "." + date.getDay() + "." + date.getFullYear();
+    date.getMonth() + 1 + "." + date.getDate() + "." + date.getFullYear();
   if (!masterLog[today]) {
     masterLog[today] = [];
   }
   masterLog[today].push(elapsed);
-  console.log(Object.values(masterLog));
 }
 
 function saveLocalData() {
