@@ -22,8 +22,8 @@ function timerEnd() {
 
 function logTime() {
   let date = new Date();
-  let today =
-    date.getMonth() + 1 + "." + date.getDate() + "." + date.getFullYear();
+  let today = date.toDateString();
+
   if (!masterLog[today]) {
     masterLog[today] = [];
   }
