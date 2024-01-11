@@ -1,22 +1,35 @@
 import { internalFunc, masterLog } from "./internals";
 
 const content = document.getElementById("content");
-const top = document.createElement("div");
+const left = document.createElement("div");
+const button_container = document.createElement("div");
 const button = document.createElement("button");
+const right = document.createElement("div");
+const progress_bar = document.createElement("div");
 let state = false;
 
 function initializePage() {
-  top.className = "flex justify-center py-10";
+  left.id = "left";
+  button_container.id = "button-container";
+  right.id = "right";
+  progress_bar.id = "progress-bar";
+
+  left.className = "h-screen grow";
+  button_container.className = "flex justify-center py-10";
   button.className =
     "flex h-14 w-36 items-center justify-center border-2 border-black";
+  right.className = "flex h-screen w-1/3 flex-col justify-end";
+  progress_bar.className = "h-3/4 w-full bg-black";
 
-  top.id = "top";
   button.innerText = "Start";
 
   button.addEventListener("click", buttonClick);
 
-  content.append(top);
-  top.append(button);
+  content.append(left);
+  left.append(button_container);
+  button_container.append(button);
+  content.append(right);
+  right.append(progress_bar);
 
   internalFunc.applyLocalData();
 }
@@ -37,7 +50,7 @@ function buttonClick() {
 }
 
 function toggleButtonOn() {
-  top.className = "flex justify-center bg-black py-10";
+  button_container.className = "flex justify-center bg-black py-10";
   button.className =
     "flex h-14 w-36 items-center justify-center border-2 border-white text-white";
 
@@ -45,7 +58,7 @@ function toggleButtonOn() {
 }
 
 function toggleButtonOff() {
-  top.className = "flex justify-center py-10";
+  button_container.className = "flex justify-center py-10";
   button.className =
     "flex h-14 w-36 items-center justify-center border-2 border-black";
 
@@ -56,12 +69,12 @@ function updateDisplay() {
   Object.keys(masterLog).forEach((element) => {
     const key = document.createElement("div");
     key.innerText = element;
-    content.append(key);
+    left.append(key);
   });
   Object.values(masterLog).forEach((element) => {
     const value = document.createElement("div");
     value.innerText = element;
-    content.append(value);
+    left.append(value);
   });
 }
 
