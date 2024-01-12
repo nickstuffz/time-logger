@@ -4,6 +4,7 @@ const content = document.getElementById("content");
 const left = document.createElement("div");
 const button_container = document.createElement("div");
 const button = document.createElement("button");
+const data_container = document.createElement("div");
 const right = document.createElement("div");
 const progress_bar = document.createElement("div");
 let state = false;
@@ -11,22 +12,24 @@ let state = false;
 function initializePage() {
   left.id = "left";
   button_container.id = "button-container";
+  data_container.id = "data-container";
   right.id = "right";
   progress_bar.id = "progress-bar";
 
-  left.className = "h-screen grow";
+  left.className = "flex h-screen grow flex-col";
   button_container.className = "flex justify-center py-10";
   button.className =
     "flex h-14 w-36 items-center justify-center border-2 border-black";
+  data_container.className = "flex flex-col";
   right.className = "flex h-screen w-1/3 flex-col justify-end";
-  progress_bar.className = "h-3/4 w-full bg-black";
+  progress_bar.className = "w-full bg-black";
 
   button.innerText = "Start";
 
   button.addEventListener("click", buttonClick);
 
   content.append(left);
-  left.append(button_container);
+  left.append(button_container, data_container);
   button_container.append(button);
   content.append(right);
   right.append(progress_bar);
@@ -36,46 +39,69 @@ function initializePage() {
 
 function buttonClick() {
   if (state === false) {
-    toggleButtonOn();
+    toggleStylesOn();
     internalFunc.timerStart();
     state = true;
   } else {
-    toggleButtonOff();
+    toggleStylesOff();
     internalFunc.timerEnd();
     internalFunc.logTime();
-    updateDisplay();
     internalFunc.saveLocalData();
+    updateDisplay();
     state = false;
   }
 }
 
-function toggleButtonOn() {
-  button_container.className = "flex justify-center bg-black py-10";
-  button.className =
-    "flex h-14 w-36 items-center justify-center border-2 border-white text-white";
+function toggleStylesOn() {
+  button_container.style.backgroundColor = "black";
+  button.style.borderColor = "white";
+  button.style.color = "white";
+
+  right.style.backgroundColor = "black";
+  progress_bar.style.backgroundColor = "white";
 
   button.innerText = "Stop";
 }
 
-function toggleButtonOff() {
-  button_container.className = "flex justify-center py-10";
-  button.className =
-    "flex h-14 w-36 items-center justify-center border-2 border-black";
+function toggleStylesOff() {
+  button_container.style.backgroundColor = "white";
+  button.style.borderColor = "black";
+  button.style.color = "black";
+
+  right.style.backgroundColor = "white";
+  progress_bar.style.backgroundColor = "black";
 
   button.innerText = "Start";
 }
 
 function updateDisplay() {
   Object.keys(masterLog).forEach((element) => {
-    const key = document.createElement("div");
-    key.innerText = element;
-    left.append(key);
-  });
-  Object.values(masterLog).forEach((element) => {
-    const value = document.createElement("div");
-    value.innerText = element;
-    left.append(value);
+    const date = document.createElement("div");
+    date.id = element;
+    date.className = "w-full";
+    date.innerText = element;
+    data_container.append(date);
+
+    // set target hours (in milliseconds)
+    const date_target = 1 * 3600000;
+    const date_total = masterLog[element].reduce(
+      (prev, curr) => prev + curr,
+      0,
+    );
+    const date_percentage = 100 * (date_total / date_target);
+    console.log(date_percentage);
+    const date_progress = document.createElement("div");
+    date_progress.className = `bg-black h-6`;
+    date_progress.style.width = `${date_percentage}%`;
+    data_container.append(date_progress);
+
+    progress_bar.style.height = `${date_percentage}%`;
   });
 }
+
+// function updateDisplay2() {
+//   refactor
+
+// }
 
 export { initializePage };
