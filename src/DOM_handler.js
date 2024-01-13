@@ -21,7 +21,8 @@ function initializePage() {
   button.className =
     "flex h-14 w-36 items-center justify-center border-2 border-black";
   data_container.className = "flex flex-col";
-  right.className = "flex h-screen w-1/3 flex-col justify-end";
+  right.className =
+    "flex h-screen w-1/3 flex-col justify-end border-2 border-dotted border-black";
   progress_bar.className = "w-full bg-black";
 
   button.innerText = "Start";
@@ -57,6 +58,7 @@ function toggleStylesOn() {
   button.style.borderColor = "white";
   button.style.color = "white";
 
+  left.style.backgroundColor = "black";
   right.style.backgroundColor = "black";
   progress_bar.style.backgroundColor = "white";
 
@@ -68,6 +70,7 @@ function toggleStylesOff() {
   button.style.borderColor = "black";
   button.style.color = "black";
 
+  left.style.backgroundColor = "white";
   right.style.backgroundColor = "white";
   progress_bar.style.backgroundColor = "black";
 
@@ -75,6 +78,7 @@ function toggleStylesOff() {
 }
 
 function updateDisplay() {
+  clearDisplay();
   Object.keys(masterLog).forEach((element) => {
     const date = document.createElement("div");
     date.id = element;
@@ -88,8 +92,8 @@ function updateDisplay() {
       (prev, curr) => prev + curr,
       0,
     );
-    const date_percentage = 100 * (date_total / date_target);
-    console.log(date_percentage);
+    let date_percentage = 100 * (date_total / date_target);
+    date_percentage = date_percentage < 100 ? date_percentage : 100;
     const date_progress = document.createElement("div");
     date_progress.className = `bg-black h-6`;
     date_progress.style.width = `${date_percentage}%`;
@@ -98,10 +102,14 @@ function updateDisplay() {
     progress_bar.style.height = `${date_percentage}%`;
   });
 }
+function clearDisplay() {
+  data_container.replaceChildren();
+}
 
-// function updateDisplay2() {
-//   refactor
-
-// }
+function updateDisplay2() {
+  // clearDisplay();
+  // updateDates();
+  // updateBars();
+}
 
 export { initializePage };
