@@ -63,6 +63,10 @@ function toggleStylesOn() {
   progress_bar.style.backgroundColor = "white";
 
   button.innerText = "Stop";
+
+  document.title = "running...";
+
+  // implement close event detection warning
 }
 
 function toggleStylesOff() {
@@ -75,6 +79,8 @@ function toggleStylesOff() {
   progress_bar.style.backgroundColor = "black";
 
   button.innerText = "Start";
+
+  document.title = "timeLogger";
 }
 
 function updateDisplay() {

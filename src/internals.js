@@ -42,5 +42,3 @@ function applyLocalData() {
 }
 
 export { internalFunc, masterLog };
-
-// todo: add tab close detection and warning if timer is running
