@@ -78,7 +78,18 @@ function toggleStylesOff() {
 }
 
 function updateDisplay() {
-  clearDisplay();
+  clearDisplayData();
+  updateProgressBar(updateDisplayData());
+}
+
+function clearDisplayData() {
+  data_container.replaceChildren();
+}
+
+function updateDisplayData() {
+  let date_percentage;
+  let date_target = 3 * 3600000;
+
   Object.keys(masterLog).forEach((element) => {
     const date = document.createElement("div");
     date.id = element;
@@ -86,24 +97,22 @@ function updateDisplay() {
     date.innerText = element;
     data_container.append(date);
 
-    // set target hours (in milliseconds)
-    const date_target = 1 * 3600000;
     const date_total = masterLog[element].reduce(
       (prev, curr) => prev + curr,
       0,
     );
-    let date_percentage = 100 * (date_total / date_target);
+    date_percentage = 100 * (date_total / date_target);
     date_percentage = date_percentage < 100 ? date_percentage : 100;
     const date_progress = document.createElement("div");
     date_progress.className = `bg-black h-6`;
     date_progress.style.width = `${date_percentage}%`;
     data_container.append(date_progress);
-
-    progress_bar.style.height = `${date_percentage}%`;
   });
+  return date_percentage;
 }
-function clearDisplay() {
-  data_container.replaceChildren();
+
+function updateProgressBar(date_percentage) {
+  progress_bar.style.height = `${date_percentage}%`;
 }
 
 function updateDisplay2() {
