@@ -10,6 +10,37 @@ const progress_bar = document.createElement("div");
 let state = false;
 
 function initializePage() {
+  initializeStructure();
+  // left.id = "left";
+  // button_container.id = "button-container";
+  // data_container.id = "data-container";
+  // right.id = "right";
+  // progress_bar.id = "progress-bar";
+
+  // left.className = "flex h-screen grow flex-col";
+  // button_container.className = "flex justify-center py-10";
+  // button.className =
+  //   "flex h-14 w-36 items-center justify-center border-2 border-black";
+  // data_container.className = "flex flex-col";
+  // right.className =
+  //   "flex h-screen w-1/3 flex-col justify-end border-2 border-dotted border-black";
+  // progress_bar.className = "w-full bg-black";
+
+  // button.innerText = "Start";
+
+  // button.addEventListener("click", buttonClick);
+
+  // content.append(left);
+  // left.append(button_container, data_container);
+  // button_container.append(button);
+  // content.append(right);
+  // right.append(progress_bar);
+
+  internalFunc.applyLocalData();
+  updateDisplay();
+}
+
+function initializeStructure() {
   left.id = "left";
   button_container.id = "button-container";
   data_container.id = "data-container";
@@ -34,8 +65,6 @@ function initializePage() {
   button_container.append(button);
   content.append(right);
   right.append(progress_bar);
-
-  internalFunc.applyLocalData();
 }
 
 function buttonClick() {
@@ -60,6 +89,7 @@ function toggleStylesOn() {
 
   left.style.backgroundColor = "black";
   right.style.backgroundColor = "black";
+  right.style.borderLeftColor = "white";
   progress_bar.style.backgroundColor = "white";
 
   button.innerText = "Stop";
@@ -76,6 +106,7 @@ function toggleStylesOff() {
 
   left.style.backgroundColor = "white";
   right.style.backgroundColor = "white";
+  right.style.borderLeftColor = "black";
   progress_bar.style.backgroundColor = "black";
 
   button.innerText = "Start";
@@ -115,16 +146,13 @@ function updateDisplayData() {
     data_container.append(date_progress);
   });
   return date_percentage;
+
+  // summing calculation should probably be done on the internals.js file
+  // -masterLog -> date -> array / sum
 }
 
 function updateProgressBar(date_percentage) {
   progress_bar.style.height = `${date_percentage}%`;
-}
-
-function updateDisplay2() {
-  // clearDisplay();
-  // updateDates();
-  // updateBars();
 }
 
 export { initializePage };
