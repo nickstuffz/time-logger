@@ -7,35 +7,11 @@ const button = document.createElement("button");
 const data_container = document.createElement("div");
 const right = document.createElement("div");
 const progress_bar = document.createElement("div");
+const goal = document.createElement("div");
 let state = false;
 
 function initializePage() {
   initializeStructure();
-  // left.id = "left";
-  // button_container.id = "button-container";
-  // data_container.id = "data-container";
-  // right.id = "right";
-  // progress_bar.id = "progress-bar";
-
-  // left.className = "flex h-screen grow flex-col";
-  // button_container.className = "flex justify-center py-10";
-  // button.className =
-  //   "flex h-14 w-36 items-center justify-center border-2 border-black";
-  // data_container.className = "flex flex-col";
-  // right.className =
-  //   "flex h-screen w-1/3 flex-col justify-end border-2 border-dotted border-black";
-  // progress_bar.className = "w-full bg-black";
-
-  // button.innerText = "Start";
-
-  // button.addEventListener("click", buttonClick);
-
-  // content.append(left);
-  // left.append(button_container, data_container);
-  // button_container.append(button);
-  // content.append(right);
-  // right.append(progress_bar);
-
   internalFunc.applyLocalData();
   updateDisplay();
 }
@@ -46,6 +22,7 @@ function initializeStructure() {
   data_container.id = "data-container";
   right.id = "right";
   progress_bar.id = "progress-bar";
+  goal.id = "goal";
 
   left.className = "flex h-screen grow flex-col";
   button_container.className = "flex justify-center py-10";
@@ -53,10 +30,13 @@ function initializeStructure() {
     "flex h-14 w-36 items-center justify-center border-2 border-black";
   data_container.className = "flex flex-col";
   right.className =
-    "flex h-screen w-1/3 flex-col justify-end border-2 border-dotted border-black";
+    "relative flex h-screen w-1/3 flex-col justify-end border-2 border-dotted border-black bg-white";
   progress_bar.className = "w-full bg-black";
+  goal.className =
+    "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white mix-blend-difference";
 
   button.innerText = "Start";
+  goal.innerText = "2h 30m";
 
   button.addEventListener("click", buttonClick);
 
@@ -64,7 +44,7 @@ function initializeStructure() {
   left.append(button_container, data_container);
   button_container.append(button);
   content.append(right);
-  right.append(progress_bar);
+  right.append(progress_bar, goal);
 }
 
 function buttonClick() {
@@ -140,6 +120,9 @@ function updateDisplayData() {
     );
     date_percentage = 100 * (date_total / date_target);
     date_percentage = date_percentage < 100 ? date_percentage : 100;
+
+    date_percentage = 50;
+
     const date_progress = document.createElement("div");
     date_progress.className = `bg-black h-6`;
     date_progress.style.width = `${date_percentage}%`;
@@ -156,3 +139,6 @@ function updateProgressBar(date_percentage) {
 }
 
 export { initializePage };
+
+// create onClick slider to set hours on progress bar
+// slide between 1-24 from bottom to top of bar
