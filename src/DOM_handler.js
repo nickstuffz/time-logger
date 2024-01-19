@@ -25,7 +25,8 @@ function initializeStructure() {
   goal.id = "goal";
 
   left.className = "flex h-screen grow flex-col";
-  button_container.className = "flex justify-center py-10";
+  button_container.className =
+    "flex justify-center border-2 border-black py-10";
   button.className =
     "flex h-14 w-36 items-center justify-center border-2 border-black";
   data_container.className = "flex flex-col";
@@ -39,6 +40,7 @@ function initializeStructure() {
   goal.innerText = "2h 30m";
 
   button.addEventListener("click", buttonClick);
+  goal.addEventListener("click", goalClick);
 
   content.append(left);
   left.append(button_container, data_container);
@@ -49,16 +51,16 @@ function initializeStructure() {
 
 function buttonClick() {
   if (state === false) {
+    state = true;
     toggleStylesOn();
     internalFunc.timerStart();
-    state = true;
   } else {
+    state = false;
     toggleStylesOff();
     internalFunc.timerEnd();
     internalFunc.logTime();
     internalFunc.saveLocalData();
     updateDisplay();
-    state = false;
   }
 }
 
@@ -119,7 +121,9 @@ function updateDisplayData() {
       0,
     );
     date_percentage = 100 * (date_total / date_target);
-    date_percentage = date_percentage < 100 ? date_percentage : 100;
+    if (date_percentage > 100) {
+      date_percentage = 100;
+    }
 
     date_percentage = 50;
 
@@ -142,3 +146,26 @@ export { initializePage };
 
 // create onClick slider to set hours on progress bar
 // slide between 1-24 from bottom to top of bar
+
+// create animations, progress bar slide out, dates type out
+
+let settingGoal = "off";
+
+function goalClick(event) {
+  if (settingGoal === "on") return;
+  settingGoal = "on";
+
+  right.addEventListener("mousemove", goalMove);
+  // right.addEventListener("click", goalSet);
+}
+
+function goalMove(event) {
+  let percentY = 100 * (1 - event.clientY / window.innerHeight);
+  console.log(percentY);
+}
+
+function goalMap(percentY) {}
+
+function goalSet(event) {}
+
+// lookup event propogation
