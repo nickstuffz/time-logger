@@ -9,6 +9,7 @@ const right = document.createElement("div");
 const progress_bar = document.createElement("div");
 const goal = document.createElement("div");
 let state = false;
+let hoursGoal = 3;
 
 function initializePage() {
   initializeStructure();
@@ -37,10 +38,10 @@ function initializeStructure() {
     "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white mix-blend-difference";
 
   button.innerText = "Start";
-  goal.innerText = "2h 30m";
+  goal.innerText = "goal is " + hoursGoal + " hours";
 
   button.addEventListener("click", buttonClick);
-  goal.addEventListener("click", goalClick);
+  // goal.addEventListener("click", goalClick);
 
   content.append(left);
   left.append(button_container, data_container);
@@ -107,7 +108,7 @@ function clearDisplayData() {
 
 function updateDisplayData() {
   let date_percentage;
-  let date_target = 3 * 3600000;
+  let date_target = hoursGoal * 3600000;
 
   Object.keys(masterLog).forEach((element) => {
     const date = document.createElement("div");
@@ -125,8 +126,6 @@ function updateDisplayData() {
       date_percentage = 100;
     }
 
-    date_percentage = 50;
-
     const date_progress = document.createElement("div");
     date_progress.className = `bg-black h-6`;
     date_progress.style.width = `${date_percentage}%`;
@@ -143,29 +142,3 @@ function updateProgressBar(date_percentage) {
 }
 
 export { initializePage };
-
-// create onClick slider to set hours on progress bar
-// slide between 1-24 from bottom to top of bar
-
-// create animations, progress bar slide out, dates type out
-
-let settingGoal = "off";
-
-function goalClick(event) {
-  if (settingGoal === "on") return;
-  settingGoal = "on";
-
-  right.addEventListener("mousemove", goalMove);
-  // right.addEventListener("click", goalSet);
-}
-
-function goalMove(event) {
-  let percentY = 100 * (1 - event.clientY / window.innerHeight);
-  console.log(percentY);
-}
-
-function goalMap(percentY) {}
-
-function goalSet(event) {}
-
-// lookup event propogation
